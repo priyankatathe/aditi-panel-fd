@@ -12,7 +12,7 @@ const Enquiries = () => {
       phone: "+91 8585 202 202",
       message: "Hi, I Haven’t Received My Order Yet. Can You Help?",
       status: "Contacted",
-      statusColor: "bg-green-900/30 text-green-400",
+      statusColor: "bg-[#22FF0030] text-[#22FF00]",
       date: "20/12/2025",
       time: "10:00 AM",
       showButton: false,
@@ -51,9 +51,9 @@ const Enquiries = () => {
             <Icon icon="tabler:message-filled" width="30" height="30" className="text-[#FFFFFF]" />
           </div>
 
-          {/* <span className="bg-green-900/40 text-green-400 px-3 py-1 text-sm rounded-xl font-semibold">
+          <span className="bg-[#22FF0030] text-[#22FF00] px-3 py-1 text-sm rounded-xl font-semibold">
             +12.5 %
-          </span> */}
+          </span>
         </div>
 
         <p className="mt-6 text-gray-400 text-sm">Total Enquiries</p>

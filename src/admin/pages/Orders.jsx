@@ -22,7 +22,7 @@ const Orders = () => {
     Completed: "bg-[#22FF0030] text-[#22FF00]",
     Pending: "bg-[#D9FF0030] text-[#D9FF00]",
     Processing: "bg-[#00D4FF0F] text-[#00D4FF]",
-    Shipped: "bg-[#D207FF3B] text-[#D207FF3B]",
+    Shipped: "bg-[#D207FF3B] text-[#D207FF]",
   };
 
   // ✅ FILTER LOGIC
@@ -161,7 +161,7 @@ const Orders = () => {
                 <td className="p-4 text-gray-300">{order.date}</td>
 
                 <td className="p-4">
-                  <span className="px-4 py-1 rounded-lg bg-green-700/20 text-green-400 text-sm font-medium">
+                  <span className="px-4 py-1 rounded-lg bg-[#22FF0030] text-[#22FF00] text-sm font-medium">
                     {order.paid}
                   </span>
                 </td>
