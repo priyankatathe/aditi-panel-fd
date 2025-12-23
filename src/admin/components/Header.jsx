@@ -1,34 +1,19 @@
-import { useEffect, useState } from "react";
 import { Menu } from "lucide-react";
 import { Icon } from "@iconify/react";
 
-const Header = ({ toggleSidebar }) => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "light"
-  );
+const Header = ({ toggleSidebar, theme, setTheme }) => {
+  // Theme toggle function
+  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-  };
   return (
-   <header className="fixed top-0 right-0 z-10 
-  bg-white/5 backdrop-blur-xl border-b border-white/10 px-4 py-3
-  w-full md:w-[calc(100%-92px)] md:ml-23">
-
-
+    <header className="fixed top-0 right-0 z-50 
+      bg-white/5 backdrop-blur-xl border-b border-white/10 px-4 py-3
+      w-full md:w-[calc(100%-92px)] md:ml-23"
+    >
       <div className="w-full flex items-center justify-between">
 
         {/* Left Side: Toggle + Search */}
-        <div className="flex items-center  gap-3 sm:gap-4 flex-1">
+        <div className="flex items-center gap-3 sm:gap-4 flex-1">
           {/* Mobile Menu Toggle */}
           <button
             className="md:hidden text-white"
@@ -38,7 +23,7 @@ const Header = ({ toggleSidebar }) => {
           </button>
 
           {/* Search Bar */}
-          <div className="relative w-full  sm:w-[250px] md:w-[350px] lg:w-[400px]">
+          <div className="relative w-full sm:w-[250px] md:w-[350px] lg:w-[400px]">
             <input
               type="text"
               placeholder="Search ..."
@@ -70,6 +55,7 @@ const Header = ({ toggleSidebar }) => {
               className="text-gray-300"
             />
           </button>
+
           {/* Notifications */}
           <button className="p-2 rounded-lg hover:bg-white/10 transition-all relative">
             <Icon icon="clarity:notification-solid" width={24} height={24} className="text-gray-300" />

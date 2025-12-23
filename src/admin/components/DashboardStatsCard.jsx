@@ -4,10 +4,12 @@ import { Icon } from "@iconify/react";
 
 const DashboardStatsCard = ({ title, value, icon, percent, chartColor, chartData, filterId }) => {
     return (
-        <div className="relative bg-[#FFFFFF0A] border border-white/5 rounded-3xl p-6 overflow-hidden shadow-lg group hover:shadow-2xl transition-all duration-300 min-h-[220px] flex flex-col justify-between">
+     <div className="relative bg-[#FFFFFF0A] border border-cyan-200  rounded-3xl p-6 
+    overflow-hidden shadow-lg group hover:shadow-2xl transition-all duration-300 
+    min-h-[220px] flex flex-col justify-between">
 
             {/* Top Section */}
-            <div className="flex justify-between items-start z-10 relative">
+            <div className="flex  justify-between items-start z-10 relative">
                 <div className="h-14 w-14 bg-[#FFFFFF1C] rounded-2xl flex items-center justify-center text-white shadow-inner">
                     <Icon icon={icon} width={28} height={28} className="text-[#00d5ff]" />
                 </div>

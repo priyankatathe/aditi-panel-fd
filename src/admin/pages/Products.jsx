@@ -386,7 +386,7 @@ const Products = () => {
                   alt=""
                   className={`
       relative z-10 
-      h-[60%] sm:h-[70%] md:h-[75%] lg:h-[80%]
+      h-[60%] sm:h-[70%]  md:h-[75%] lg:h-[80%]
       object-contain
       drop-shadow-2xl lg:ml-15
     `}

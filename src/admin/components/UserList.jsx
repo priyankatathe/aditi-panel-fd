@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search, Filter, Eye } from "lucide-react";
 import { useGetUsersQuery } from "../../Redux/Apis/usersApi";
 
 const UserList = () => {
   const { data, isLoading, isError } = useGetUsersQuery();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const getInitials = (fullName) =>
     fullName
@@ -32,6 +33,13 @@ const UserList = () => {
       spent: `$${user.totalSpent || 0}`,
     })) || [];
 
+  // 🔍 SEARCH LOGIC (no UI change)
+  const filteredStudents = students.filter((item) =>
+    `${item.name} ${item.email} ${item.location} ${item.contact}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="bg-[#020523] min-h-screen text-white ">
       {/* Search + Filter */}
@@ -41,6 +49,8 @@ const UserList = () => {
           <input
             type="text"
             placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="bg-transparent focus:outline-none text-gray-200 w-full"
           />
         </div>
@@ -67,7 +77,7 @@ const UserList = () => {
           </div>
 
           {/* Rows */}
-          {students.map((item, index) => (
+          {filteredStudents.map((item, index) => (
             <div
               key={index}
               className="grid grid-cols-8 px-6 py-5 border-b border-white/10 text-gray-200"

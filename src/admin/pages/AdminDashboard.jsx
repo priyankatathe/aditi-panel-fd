@@ -53,7 +53,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen lg:ml-23 overflow-hidden  text-white pb-10">
+    <div className="min-h-screen lg:ml-23 overflow-hidden  text-white  pb-10">
 
       {/* Page Header */}
       <div className="mb-8">
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
         {stats.map((item, index) => (
           <DashboardStatsCard
             key={index}
-            filterId={` font-manrope line-shadow-${index}`} // unique filter for each card
+            filterId={` font-manrope  line-shadow-${index}`} // unique filter for each card
             {...item}
           />
         ))}
