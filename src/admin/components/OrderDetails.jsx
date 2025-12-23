@@ -5,12 +5,9 @@ import { Icon } from "@iconify/react";
 import { useGetOdersByIdQuery } from "../../Redux/Apis/OrdersApi";
 
 const OrderDetails = ({ open, onClose, order }) => {
-  // ❌ popup closed or no order id
   if (!open || !order?._id) return null;
 
-  // ✅ API CALL BY ID
   const { data, isLoading } = useGetOdersByIdQuery(order._id);
-
   const orderData = data?.order;
 
   if (isLoading || !orderData) {
@@ -24,22 +21,19 @@ const OrderDetails = ({ open, onClose, order }) => {
     );
   }
 
-  const totalItems = orderData.products?.reduce(
-    (sum, p) => sum + (p.quantity || p.qty || 0),
+  const totalItems = orderData?.products?.reduce(
+    (sum, p) => sum + (p?.quantity || p?.qty || 0),
     0
   );
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
-      {/* BACKDROP */}
       <div
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
         onClick={onClose}
       />
 
-      {/* RIGHT SIDE PANEL */}
       <div className="relative w-[450px] md:w-[520px] h-full bg-[#020523] text-white p-6 overflow-y-auto shadow-2xl border-l border-white/10">
-        {/* CLOSE BUTTON */}
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-white"
           onClick={onClose}
@@ -47,24 +41,26 @@ const OrderDetails = ({ open, onClose, order }) => {
           <X size={24} />
         </button>
 
-        {/* ORDER HEADER */}
+        {/* HEADER */}
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-xl font-semibold mt-6">
-              #{orderData._id.slice(-6)}
+              #{orderData?._id?.slice(-6) || "N/A"}
             </h2>
             <p className="text-gray-400 text-sm">
-              {new Date(orderData.createdAt).toLocaleDateString("en-IN")}
+              {orderData?.createdAt
+                ? new Date(orderData.createdAt).toLocaleDateString("en-IN")
+                : "N/A"}
             </p>
           </div>
+
           <span className="px-4 py-1 mt-3 inline-block mr-4 rounded-xl bg-green-700/20 text-green-400">
-            {orderData.paymentStatus === "completed"
+            {orderData?.paymentStatus === "completed"
               ? "Completed"
               : "Pending"}
           </span>
         </div>
 
-        {/* SECTIONS */}
         <div className="mt-8 space-y-6">
           {/* CUSTOMER INFO */}
           <div className="bg-[#0B1135] p-5 rounded-2xl border border-white/10">
@@ -78,9 +74,11 @@ const OrderDetails = ({ open, onClose, order }) => {
               </div>
 
               <div>
-                <p className="font-medium">Customer</p>
+                <p className="font-medium">
+                  {orderData?.addressId?.fullName || "Customer"}
+                </p>
                 <p className="text-gray-400 text-sm">
-                  customer@email.com
+                  {orderData?.addressId?.phone || "N/A"}
                 </p>
               </div>
             </div>
@@ -89,8 +87,11 @@ const OrderDetails = ({ open, onClose, order }) => {
               Shipping Address
             </p>
 
+            {/* ✅ FIXED */}
             <p className="text-sm mt-1">
-              Address ID: {orderData.addressId}
+              {orderData?.addressId
+                ? `${orderData.addressId.street}, ${orderData.addressId.city}, ${orderData.addressId.state} - ${orderData.addressId.pincode}`
+                : "N/A"}
             </p>
           </div>
 
@@ -98,7 +99,7 @@ const OrderDetails = ({ open, onClose, order }) => {
           <div className="bg-[#0B1135] p-5 rounded-2xl border border-white/10">
             <h3 className="text-sm text-gray-400 mb-3">Order Items</h3>
 
-            {orderData.products.map((item, i) => (
+            {orderData?.products?.map((item, i) => (
               <div
                 key={i}
                 className="flex justify-between items-center py-3 border-b border-white/10"
@@ -108,26 +109,32 @@ const OrderDetails = ({ open, onClose, order }) => {
                     <img
                       src={bg1}
                       className="w-12 h-12 rounded-full"
+                      alt="product"
                     />
                   </div>
+
                   <div>
+                    {/* ✅ FIXED */}
                     <p className="font-manrope">
-                      Product ID: {item.productId.slice(-6)}
+                      Product ID:{" "}
+                      {item?.productId
+                        ? item.productId.slice(-6)
+                        : "N/A"}
                     </p>
                     <p className="text-gray-400 text-xs font-manrope">
-                      Quantity: {item.quantity || item.qty}
+                      Quantity: {item?.quantity || item?.qty || 0}
                     </p>
                   </div>
                 </div>
 
-                <p>${orderData.totalAmount}</p>
+                <p>${orderData?.totalAmount || 0}</p>
               </div>
             ))}
 
             <div className="mt-4">
               <div className="flex justify-between text-gray-300 text-sm">
                 <p className="text-[#A19F9F]">Items</p>
-                <p>{totalItems}</p>
+                <p>{totalItems || 0}</p>
               </div>
 
               <div className="flex mt-3 justify-between text-gray-300 text-sm">
@@ -137,7 +144,7 @@ const OrderDetails = ({ open, onClose, order }) => {
 
               <div className="flex justify-between text-lg mt-3">
                 <p>Total</p>
-                <p>${orderData.totalAmount}</p>
+                <p>${orderData?.totalAmount || 0}</p>
               </div>
             </div>
           </div>
@@ -173,7 +180,9 @@ const OrderDetails = ({ open, onClose, order }) => {
                 <div>
                   <p className="font-medium">{step}</p>
                   <p className="text-gray-400 text-xs">
-                    {new Date(orderData.createdAt).toLocaleString()}
+                    {orderData?.createdAt
+                      ? new Date(orderData.createdAt).toLocaleString()
+                      : "N/A"}
                   </p>
                 </div>
               </div>
