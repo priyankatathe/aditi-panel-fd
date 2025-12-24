@@ -15,29 +15,45 @@ const Orders = () => {
   const tabs = ["All", "Pending", "Processing", "Shipped", "Completed"];
 
     //  API → UI DATA MAPPING
-  const orders = (data?.orders || []).map((order) => {
-    const totalItems = order.products?.reduce(
-      (sum, p) => sum + (p.quantity || p.qty || 0),
-      0
-    );
+ const orders = (data?.orders || []).map((order) => {
+  const totalItems = order.products?.reduce(
+    (sum, p) => sum + (p.qty || p.quantity || 0),
+    0
+  );
 
-    return {
-      id: `${order._id.slice(-6)}`,
-      orderId: order._id,
-      name: "Customer",
-      email: "customer@email.com",
-      items: totalItems,
-      amount: `₹${order.totalAmount}`,
-      status:
-        order.paymentStatus === "completed"
-          ? "Completed"
-          : "Pending",
-      date: new Date(order.createdAt).toLocaleDateString("en-IN"),
-      paid:
-        order.paymentStatus === "completed" ? "Paid" : "Unpaid",
-      raw: order,
-    };
-  });
+  const contact =
+    order.userId?.phone
+      ? order.userId.phone
+      : order.userId?.email
+      ? order.userId.email
+      : "N/A";
+
+  return {
+    id: order._id.slice(-6),
+    orderId: order._id,
+
+    name: order.userId?.name || "N/A",
+    contact, // 👈 phone OR email
+
+    items: totalItems,
+    amount: `₹${order.totalAmount}`,
+
+    status:
+      order.paymentStatus === "completed"
+        ? "Completed"
+        : "Pending",
+
+    date: new Date(order.createdAt).toLocaleDateString("en-IN"),
+
+    paid:
+      order.paymentStatus === "completed"
+        ? "Paid"
+        : "Unpaid",
+
+    raw: order,
+  };
+});
+
 
   const statusStyles = {
     Completed: "bg-[#22FF0030] text-[#22FF00]",
@@ -170,7 +186,7 @@ const Orders = () => {
                       <div>
                         <p className="text-white">{order.name}</p>
                         <p className="text-gray-400 text-sm">
-                          {order.email}
+                          {order.contact}
                         </p>
                       </div>
                     </div>
