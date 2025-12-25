@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import AppRoutes from "./admin/routes/AppRoutes";
 import { ToastContainer } from "react-toastify";
 // import "./styles/fonts.css";
@@ -20,9 +20,9 @@ const App = () => {
         pauseOnHover
         theme="colored"
       />
-      <BrowserRouter>
+      <HashRouter>
         <AppRoutes />
-      </BrowserRouter>
+      </HashRouter>
 
     </div>
   );
