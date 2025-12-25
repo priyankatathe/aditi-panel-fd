@@ -20,6 +20,7 @@ const Products = () => {
 
   // States to add form
   const [name, setName] = useState("");
+  const [garden, setGarden] = useState("");
   const [price, setPrice] = useState("");
   const [sizeMl, setSizeMl] = useState("");
   const [stock, setStock] = useState("");
@@ -27,6 +28,7 @@ const Products = () => {
   const [ingredients, setIngredients] = useState("");
   // const [notes, setNotes] = useState("");
   const [descriptionImg, setDescriptionImg] = useState(null);
+  const [showImg, setShowImg] = useState(null);
   const [bottleImg, setBottleImg] = useState(null);
   const [discount, setDiscount] = useState("");
   const [topNotes, setTopNotes] = useState("");
@@ -65,12 +67,13 @@ const Products = () => {
         !descriptionImg ||
         !topNotes ||
         !baseNotes ||
-        !heartNotes
+        !heartNotes ||
+        !garden
       ) {
         return toast.error("All Fields are required!");
       }
     } else {
-      if (!name || !price || !sizeMl || !stock || !descriptionText) {
+      if (!name || !price || !sizeMl || !stock || !descriptionText || !garden) {
         return toast.error("Please fill required fields before updating!");
       }
     }
@@ -89,9 +92,11 @@ const Products = () => {
       formData.append("descriptionText", descriptionText);
       formData.append("ingredients", ingredients);
       formData.append("discount", discount);
+      formData.append("garden", garden);
 
       if (bottleImg) formData.append("bottleImg", bottleImg);
       if (descriptionImg) formData.append("descriptionImg", descriptionImg);
+      if (showImg) formData.append("showImg", showImg);
 
       const notesObject = {
         top: topNotes ? topNotes.split(",").map((s) => s.trim()) : [],
@@ -132,8 +137,10 @@ const Products = () => {
         setTopNotes("");
         setHeartNotes("");
         setBaseNotes("");
+        setGarden("");
         setBottleImg(null);
         setDescriptionImg(null);
+        setShowImg(null);
       }
 
       setAddProductModal(false);
@@ -168,6 +175,7 @@ const Products = () => {
     setEditProductId(p._id);
 
     setName(p.name);
+    setGarden(p.garden);
     setPrice(p.price);
     setSizeMl(p.sizeMl);
     setStock(p.stock);
@@ -181,6 +189,7 @@ const Products = () => {
 
     setBottleImg(null);
     setDescriptionImg(null);
+    setShowImg(null);
 
     setAddProductModal(true);
   };
@@ -216,6 +225,7 @@ const Products = () => {
             setEditProductId(null);
 
             setName("");
+            setGarden("");
             setPrice("");
             setSizeMl("");
             setStock("");
@@ -228,6 +238,7 @@ const Products = () => {
 
             setBottleImg(null);
             setDescriptionImg(null);
+            setShowImg(null);
 
             setAddProductModal(true);
           }}
@@ -559,6 +570,15 @@ const Products = () => {
                     onChange={(e) => setHeartNotes(e.target.value)}
                   />
                 </div>
+                <div>
+                  <label className="text-sm opacity-70">Garden</label>
+                  <input
+                    className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3"
+                    placeholder="Enter"
+                    value={garden}
+                    onChange={(e) => setGarden(e.target.value)}
+                  />
+                </div>
               </div>
 
               <div className="flex flex-col gap-6">
@@ -669,6 +689,59 @@ const Products = () => {
                     accept="image/*"
                     className="hidden"
                     onChange={(e) => setDescriptionImg(e.target.files[0])}
+                  />
+                </div>
+
+                <div
+                  className="border-2 border-dashed border-[#2C3551] rounded-xl h-[300px] 
+  flex flex-col items-center justify-center gap-4 bg-[#131A2D]
+  hover:border-[#00D4FF] hover:bg-[#0F1629] transition-all cursor-pointer group"
+                >
+                  {/* Agar image selected hai toh preview dikhao */}
+                  {showImg ? (
+                    <div className="flex flex-col items-center gap-3">
+                      <img
+                        // Check if it's a File object (for new uploads) or a String (from API during edit)
+                        src={typeof showImg === 'string' ? showImg : URL.createObjectURL(showImg)}
+                        alt="Show Preview"
+                        className="h-40 w-40 object-cover rounded-lg shadow-lg"
+                      />
+
+                      <label
+                        htmlFor="showImgUpload" // Unique ID
+                        className="px-6 py-2 bg-[#00D4FF] text-black rounded-lg text-sm
+        hover:opacity-90 transition cursor-pointer"
+                      >
+                        Change Image
+                      </label>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="text-gray-400 group-hover:text-[#00D4FF] text-4xl transition">
+                        📷
+                      </div>
+
+                      <label
+                        htmlFor="showImgUpload" // Unique ID
+                        className="px-6 py-2 bg-[#1B233A] text-white rounded-lg text-sm
+        group-hover:bg-[#00D4FF] group-hover:text-black transition cursor-pointer"
+                      >
+                        Upload Show Image
+                      </label>
+
+                      <p className="text-xs text-gray-500 group-hover:text-gray-300 transition">
+                        JPG, PNG, WEBP — Max 5MB
+                      </p>
+                    </>
+                  )}
+
+                  {/* Hidden File Input with Unique ID */}
+                  <input
+                    id="showImgUpload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => setShowImg(e.target.files[0])}
                   />
                 </div>
 
