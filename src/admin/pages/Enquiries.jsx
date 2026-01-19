@@ -39,7 +39,7 @@ const Enquiries = () => {
           <p className="text-gray-400 text-xs mt-1 font-manrope">Recent Enquiries History</p>
         </div>
         <button className="flex items-center gap-2 bg-[#0B1135] border border-white/10 px-5 py-3 rounded-xl ml-4 text-gray-300 hover:bg-white/10 transition">
-          <LuDownload className="text-xl" />
+          <Icon icon="solar:export-broken" className="text-xl" />
           Export
         </button>
       </div>

@@ -6,7 +6,10 @@ import SellsByPerfume from "../components/SellsByPerfume";
 import LiveAudience from "../components/LiveAudience";
 import TopSellingAndOrders from "../components/TopSellingAndOrders"; // Keeping this for now, will refactor next if needed
 import { Icon } from "@iconify/react";
+import { useGetCardstatusQuery } from "../../Redux/Apis/dashboardApi";
 const AdminDashboard = () => {
+
+  const { data, isLoading } = useGetCardstatusQuery();
   // Precise data to match the screenshot curve
   const revenueData = [
     { uv: 12 }, { uv: 13 }, { uv: 14 }, { uv: 15 }, { uv: 18 }, { uv: 19 }, { uv: 20 }, { uv: 22 }, { uv: 26 }, { uv: 34 }, { uv: 38 }, { uv: 40 }
@@ -20,7 +23,7 @@ const AdminDashboard = () => {
   const stats = [
     {
       title: "Total Revenue",
-      value: "$328,500",
+      value: isLoading ? "Loading..." : `$${data?.data?.totalRevenue ?? 0}`,
       percent: "+12.5%",
       icon: "mdi:dollar",
       chartColor: "#00D4FF",
@@ -28,7 +31,7 @@ const AdminDashboard = () => {
     },
     {
       title: "Orders",
-      value: "28,500",
+      value: isLoading ? "Loading..." : data?.data?.totalOrders ?? 0,
       percent: "+12.5%",
       icon: "solar:bag-2-broken",
       chartColor: "#00d5ff",
@@ -36,7 +39,7 @@ const AdminDashboard = () => {
     },
     {
       title: "Total Users",
-      value: "500",
+      value: isLoading ? "Loading..." : data?.data?.totalUsers ?? 0,
       percent: "+12.5%",
       icon: "mage:users",
       chartColor: "#00d5ff",
@@ -51,6 +54,7 @@ const AdminDashboard = () => {
       chartData: revenueData
     },
   ];
+
 
   return (
     <div className="min-h-screen lg:ml-23 overflow-hidden  text-white  pb-10">

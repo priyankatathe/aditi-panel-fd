@@ -8,8 +8,8 @@ const menuItems = [
   { name: "Users", path: "/admin/user-management", icon: "heroicons-solid:user-group" },
   { name: "Analytics", path: "/admin/analytics", icon: "simple-line-icons:chart" },
   { name: "Orders", path: "/admin/orders", icon: "solar:bag-bold" },
-  { name: "Add", path: "/admin/products", icon: "mingcute:add-circle-fill" },
-  { name: "Finance", path: "/admin/transactions", icon: "solar:bag-check-bold" },
+  { name: "Products", path: "/admin/products", icon: "mingcute:add-circle-fill" },
+  { name: "Transactions", path: "/admin/transactions", icon: "solar:bag-check-bold" },
   { name: "Messages", path: "/admin/enquiries", icon: "majesticons:messages" },
 ];
 

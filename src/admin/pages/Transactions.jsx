@@ -103,7 +103,7 @@ const Transactions = () => {
               <th className="py-4 px-4 sm:px-6 font-manrope">Amount</th>
               <th className="py-4 px-4 sm:px-6 font-manrope">Status</th>
               <th className="py-4 px-4 sm:px-6 font-manrope">Date</th>
-              <th className="py-4 px-4 sm:px-6 font-manrope">Action</th>
+              {/* <th className="py-4 px-4 sm:px-6 font-manrope">Action</th> */}
             </tr>
           </thead>
 
@@ -138,11 +138,11 @@ const Transactions = () => {
                   <p className="text-gray-400 text-xs sm:text-sm">{t.time}</p>
                 </td>
 
-                <td className="py-4 px-4 sm:px-6">
+                {/* <td className="py-4 px-4 sm:px-6">
                   <button className="text-[#00d2ff] hover:text-white text-lg sm:text-xl">
                     👁
                   </button>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

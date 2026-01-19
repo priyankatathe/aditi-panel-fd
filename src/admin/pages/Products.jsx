@@ -41,15 +41,15 @@ const Products = () => {
 
   // Other states
   const [addProductModal, setAddProductModal] = useState(false);
-  const [deletingId, setDeletingId] = useState(null);
+  const [deletingId, setDeletingId] = useState(null)
 
   // Queries and Mutations
   const [addProductMutation, { isLoading }] = useAddProductMutation();
   const { data: productsData, isLoading: getLoad } = useGetProductsQuery();
   const [deleteMutation, { isLoading: deleteLoad }] =
-    useDeleteProductMutation();
+    useDeleteProductMutation()
   const [updateMutation, { isLoading: updateLoad }] =
-    useUpdateProductMutation();
+    useUpdateProductMutation()
 
   console.log("productsData", productsData);
 
@@ -408,16 +408,17 @@ const Products = () => {
 
               {/* PRODUCT INFO */}
               <div className="mt-6">
-                <h2 className="text-2xl font-manrope  leading-tight">
+                <h2 className="text-3xl font-manrope  leading-tight">
                   {p?.name}
                 </h2>
-                <p className="text-gray-400 text-xs mt-1 font-manrope ">
+                <p className="text-gray-400 text-xs mt-1 font-manrope truncate max-w-[250px]">
                   {p?.description?.text}
                 </p>
 
+
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-md font-manrope ">{p.amount}</p>
-                  <p className="text-[#0DFF00] font-manrope  text-xs font-medium">
+                  <p className="text-[#0DFF00] font-manrope  text-base font-medium">
                     {p.stock} In stock
                   </p>
                 </div>
@@ -491,7 +492,7 @@ const Products = () => {
                   <input
                     type="number"
                     className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3 text-sm focus:outline-none"
-                    placeholder="Size"
+                    placeholder="Enter"
                     value={sizeMl}
                     onChange={(e) => setSizeMl(e.target.value)}
                   />
@@ -502,7 +503,7 @@ const Products = () => {
                   <input
                     type="text"
                     className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3 text-sm focus:outline-none"
-                    placeholder="Size"
+                    placeholder="Enter"
                     value={ingredients}
                     onChange={(e) => setIngredients(e.target.value)}
                   />
@@ -513,7 +514,7 @@ const Products = () => {
                   <input
                     type="number"
                     className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3 text-sm focus:outline-none"
-                    placeholder="Size"
+                    placeholder="Enter"
                     value={discount}
                     onChange={(e) => setDiscount(e.target.value)}
                   />
@@ -577,6 +578,16 @@ const Products = () => {
                     placeholder="Enter"
                     value={garden}
                     onChange={(e) => setGarden(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm opacity-70">Description</label>
+                  <textarea
+                    rows="6"
+                    className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3"
+                    placeholder="Enter Product Description"
+                    value={descriptionText}
+                    onChange={(e) => setDescriptionText(e.target.value)}
                   />
                 </div>
               </div>
@@ -745,16 +756,7 @@ const Products = () => {
                   />
                 </div>
 
-                <div>
-                  <label className="text-sm opacity-70">Description</label>
-                  <textarea
-                    rows="6"
-                    className="w-full mt-1 bg-[#131A2D] border border-[#29304A] rounded-lg px-4 py-3"
-                    placeholder="Enter Product Description"
-                    value={descriptionText}
-                    onChange={(e) => setDescriptionText(e.target.value)}
-                  />
-                </div>
+
               </div>
             </div>
 
@@ -764,10 +766,11 @@ const Products = () => {
             >
               ✕
             </button>
-            <button
-              onClick={handleAddProduct}
-              disabled={isLoading}
-              className="
+            <div className="flex justify-center">
+              <button
+                onClick={handleAddProduct}
+                disabled={isLoading}
+                className="
     mt-6 w-full md:w-auto px-10 py-3
     bg-gradient-to-r from-[#00D4FF] to-[#0077FF]
     text-white text-lg font-medium
@@ -775,15 +778,16 @@ const Products = () => {
     hover:opacity-90 active:scale-95 transition
     disabled:opacity-50 disabled:cursor-not-allowed
   "
-            >
-              {isEditing
-                ? updateLoad
-                  ? "Updating..."
-                  : "Update Product"
-                : isLoading
-                  ? "Adding..."
-                  : "Add Product"}
-            </button>
+              >
+                {isEditing
+                  ? updateLoad
+                    ? "Updating..."
+                    : "Update Product"
+                  : isLoading
+                    ? "Adding..."
+                    : "Add Product"}
+              </button>
+            </div>
           </div>
         </div>
       )}

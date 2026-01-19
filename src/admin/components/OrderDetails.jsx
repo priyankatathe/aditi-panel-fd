@@ -117,9 +117,12 @@ const OrderDetails = ({ open, onClose, order }) => {
                     {/* ✅ FIXED */}
                     <p className="font-manrope">
                       Product ID:{" "}
-                      {item?.productId
-                        ? item.productId.slice(-6)
-                        : "N/A"}
+                      {item?.productId?._id
+                        ? item.productId._id.slice(-6)
+                        : typeof item?.productId === "string"
+                          ? item.productId.slice(-6)
+                          : "N/A"}
+
                     </p>
                     <p className="text-gray-400 text-xs font-manrope">
                       Quantity: {item?.quantity || item?.qty || 0}

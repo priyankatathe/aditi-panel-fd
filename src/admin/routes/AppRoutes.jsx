@@ -12,6 +12,7 @@ import Transactions from "../pages/Transactions";
 import Enquiries from "../pages/Enquiries";
 import OverallVisitorTrends from "../components/OverallVisitorTrends";
 import Login from "../pages/Login";
+import CustomerDetail from "../pages/CustomerDetail";
 
 const AppRoutes = () => {
   return (
@@ -32,6 +33,7 @@ const AppRoutes = () => {
         <Route path="admin/products" element={<Products />} />
         <Route path="admin/transactions" element={<Transactions />} />
         <Route path="admin/enquiries" element={<Enquiries />} />
+        <Route path="admin/customer-detail" element={<CustomerDetail />} />
         <Route path="admin/overallVisitorTrends" element={<OverallVisitorTrends />} />
       </Route>
 
